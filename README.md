@@ -7,52 +7,224 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+# Task Manager API
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+A RESTful Task Management API built with Laravel 13 and MySQL.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
-
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
-
-## Agentic Development
-
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
-
-```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+## Live API
+```
+https://task-manager-production-e95f.up.railway.app
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+---
 
-## Contributing
+## Requirements (Local Setup)
+- PHP 8.3+
+- Composer
+- MySQL 8+
+- Laravel 13
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+---
 
-## Code of Conduct
+## How to Run Locally
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### 1. Clone the Repository
+```bash
+git clone https://github.com/Faithkanyuki/task-manager.git
+cd task-manager
+```
 
-## Security Vulnerabilities
+### 2. Install Dependencies
+```bash
+composer install
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### 3. Set Up Environment
+```bash
+cp .env.example .env
+php artisan key:generate
+```
 
-## License
+### 4. Configure MySQL in `.env`
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=task_manager
+DB_USERNAME=root
+DB_PASSWORD=
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### 5. Run Migrations
+```bash
+php artisan migrate
+```
+
+### 6. Start the Server
+```bash
+php artisan serve
+```
+
+API is now running at `http://127.0.0.1:8000`
+
+---
+
+## How to Deploy (Railway)
+
+1. Push code to GitHub
+2. Go to [https://railway.app](https://railway.app)
+3. Click **"New Project"** → **"Deploy from GitHub repo"**
+4. Select your repository
+5. Add a **MySQL** database service
+6. Set these environment variables in your Laravel service:
+```env
+APP_ENV=production
+APP_DEBUG=false
+DB_CONNECTION=mysql
+DB_HOST=your-mysql-host
+DB_PORT=your-mysql-port
+DB_DATABASE=railway
+DB_USERNAME=root
+DB_PASSWORD=your-mysql-password
+APP_KEY=base64:your-app-key
+```
+
+7. Set Start Command:
+```bash
+php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=$PORT
+```
+
+---
+
+## API Endpoints
+
+### Base URL
+```
+http://127.0.0.1:8000  (local)
+https://task-manager-production-e95f.up.railway.app  (live)
+```
+
+---
+
+### 1. Create Task
+**POST** `/api/tasks`
+
+Request Body:
+```json
+{
+    "title": "Build Login Page",
+    "due_date": "2026-04-05",
+    "priority": "high"
+}
+```
+
+Response `201`:
+```json
+{
+    "id": 1,
+    "title": "Build Login Page",
+    "due_date": "2026-04-05",
+    "priority": "high",
+    "status": "pending",
+    "created_at": "2026-03-30T...",
+    "updated_at": "2026-03-30T..."
+}
+```
+
+---
+
+### 2. List Tasks
+**GET** `/api/tasks`
+
+Optional filter by status:
+```
+GET /api/tasks?status=pending
+```
+
+Response `200`:
+```json
+[
+    {
+        "id": 1,
+        "title": "Build Login Page",
+        "due_date": "2026-04-05",
+        "priority": "high",
+        "status": "pending"
+    }
+]
+```
+
+---
+
+### 3. Update Task Status
+**PATCH** `/api/tasks/{id}/status`
+
+Status must follow: `pending → in_progress → done`
+
+Request Body:
+```json
+{
+    "status": "in_progress"
+}
+```
+
+Response `200`:
+```json
+{
+    "id": 1,
+    "status": "in_progress"
+}
+```
+
+---
+
+### 4. Delete Task
+**DELETE** `/api/tasks/{id}`
+
+Only `done` tasks can be deleted.
+
+Response `200`:
+```json
+{
+    "message": "Task deleted successfully."
+}
+```
+
+Error `403`:
+```json
+{
+    "message": "Only completed (done) tasks can be deleted."
+}
+```
+
+---
+
+### 5. Daily Report (Bonus)
+**GET** `/api/tasks/report?date=YYYY-MM-DD`
+
+Example:
+```
+GET /api/tasks/report?date=2026-04-05
+```
+
+Response `200`:
+```json
+{
+    "date": "2026-04-05",
+    "summary": {
+        "high": {"pending": 1, "in_progress": 0, "done": 0},
+        "medium": {"pending": 0, "in_progress": 0, "done": 0},
+        "low": {"pending": 0, "in_progress": 0, "done": 0}
+    }
+}
+```
+
+---
+
+## Business Rules
+
+- **Create:** No duplicate title on the same due_date. Due date must be today or future.
+- **List:** Sorted by priority (high → medium → low), then due_date ascending.
+- **Update Status:** Must follow order: `pending → in_progress → done`. Cannot skip or revert.
+- **Delete:** Only `done` tasks can be deleted. Returns `403` otherwise.
