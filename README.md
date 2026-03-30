@@ -122,13 +122,13 @@ Request Body:
 Response `201`:
 ```json
 {
-    "id": 1,
     "title": "Build Login Page",
     "due_date": "2026-04-05",
     "priority": "high",
     "status": "pending",
-    "created_at": "2026-03-30T...",
-    "updated_at": "2026-03-30T..."
+    "updated_at": "2026-03-30T18:08:31.000000Z",
+    "created_at": "2026-03-30T18:08:31.000000Z",
+    "id": 1
 }
 ```
 
