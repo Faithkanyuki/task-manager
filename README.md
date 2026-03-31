@@ -9,7 +9,7 @@
   <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
   <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
-<h1 align="center">⚡ Task Manager API</h1>
+<h1 align="center">  Task Manager API</h1>
 <p align="center">
   <strong>Cytonn Software Engineering Internship — Coding Challenge 2026</strong><br>
   Built by <strong>Faith Kanyuki</strong>
