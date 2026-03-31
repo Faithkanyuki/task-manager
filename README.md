@@ -17,7 +17,7 @@ A RESTful Task Management API built with Laravel 13 and MySQL.
 https://task-manager-production-e95f.up.railway.app
 ```
 
----
+
 
 ## Requirements (Local Setup)
 - PHP 8.3+
@@ -25,7 +25,7 @@ https://task-manager-production-e95f.up.railway.app
 - MySQL 8+
 - Laravel 13
 
----
+
 
 ## How to Run Locally
 
@@ -68,7 +68,7 @@ php artisan serve
 
 API is now running at `http://127.0.0.1:8000`
 
----
+
 
 ## How to Deploy (Railway)
 
@@ -95,7 +95,7 @@ APP_KEY=base64:your-app-key
 php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=$PORT
 ```
 
----
+
 
 ## API Endpoints
 
@@ -105,7 +105,7 @@ http://127.0.0.1:8000  (local)
 https://task-manager-production-e95f.up.railway.app  (live)
 ```
 
----
+
 
 ### 1. Create Task
 **POST** `/api/tasks`
@@ -132,7 +132,7 @@ Response `201`:
 }
 ```
 
----
+
 
 ### 2. List Tasks
 **GET** `/api/tasks`
@@ -157,7 +157,7 @@ Response `200`:
 ]
 ```
 
----
+
 
 ### 3. Update Task Status
 **PATCH** `/api/tasks/{id}/status`
@@ -179,7 +179,7 @@ Response `200`:
 }
 ```
 
----
+
 
 ### 4. Delete Task
 **DELETE** `/api/tasks/{id}`
@@ -200,7 +200,7 @@ Error `403`:
 }
 ```
 
----
+
 
 ### 5. Daily Report (Bonus)
 **GET** `/api/tasks/report?date=YYYY-MM-DD`
@@ -222,7 +222,7 @@ Response `200`:
 }
 ```
 
----
+
 
 ## Business Rules
 
