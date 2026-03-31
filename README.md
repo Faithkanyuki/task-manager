@@ -245,9 +245,11 @@ Response `200`:
 - **Update Status:** Must follow order: `pending → in_progress → done`. Cannot skip or revert.
 - **Delete:** Only `done` tasks can be deleted. Returns `403` otherwise.
 
+
+
+
   
 
 <p align="center">
-
   <em>Cytonn Software Engineering Internship — 2026</em>
 </p>
