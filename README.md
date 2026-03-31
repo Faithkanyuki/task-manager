@@ -21,6 +21,7 @@
   <img src="https://img.shields.io/badge/Deployed-Railway-0B0D0E?style=for-the-badge&logo=railway&logoColor=white"/>
   <img src="https://img.shields.io/badge/Status-Live-00C896?style=for-the-badge"/>
 </p>
+
 # Task Manager API
 
 A RESTful Task Management API built with Laravel 13 and MySQL.
@@ -244,7 +245,9 @@ Response `200`:
 - **Update Status:** Must follow order: `pending → in_progress → done`. Cannot skip or revert.
 - **Delete:** Only `done` tasks can be deleted. Returns `403` otherwise.
 
+  
+
 <p align="center">
-  Made with ❤️ by <strong>Faith Kanyuki</strong><br>
+
   <em>Cytonn Software Engineering Internship — 2026</em>
 </p>
