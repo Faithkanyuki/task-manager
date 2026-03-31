@@ -150,7 +150,9 @@ Response `200`:
         "title": "Build Login Page",
         "due_date": "2026-04-05",
         "priority": "high",
-        "status": "pending"
+        "status": "pending",
+        "created_at": "2026-03-30T18:08:31.000000Z",
+        "updated_at": "2026-03-30T18:08:31.000000Z"
     }
 ]
 ```
